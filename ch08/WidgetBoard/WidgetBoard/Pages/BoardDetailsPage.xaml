@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:WidgetBoard.ViewModels"
+    x:Class="WidgetBoard.Pages.BoardDetailsPage"
+    x:DataType="viewmodels:BoardDetailsPageViewModel">
+
+    <Border
+        MinimumWidthRequest="300"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Padding="0"
+        Style="{StaticResource OverlayBorderStyle}">
+
+        <VerticalStackLayout>
+
+            <VerticalStackLayout
+                Padding="20">
+
+                <Label
+                    Text="Enter the board name"
+                    x:Name="EnterBoardNameLabel"
+                    FontAttributes="Bold" />
+
+                <Entry
+                    Text="{Binding BoardName}"
+                    SemanticProperties.Description="{Binding Text, Source={x:Reference EnterBoardNameLabel}}"
+                    SemanticProperties.Hint="Provides a name that will be used to identify our widget board. This is a required field." />
+
+
+                <Label
+                    Text="Layout"
+                    FontAttributes="Bold" />
+
+                <HorizontalStackLayout>
+                    <RadioButton
+                        x:Name="FixedRadioButton"
+                        Content="Fixed"
+                        IsChecked="{Binding IsFixed}" />
+
+                    <!--<RadioButton
+                        Content="Freeform" />-->
+                </HorizontalStackLayout>
+
+                <VerticalStackLayout 
+                    IsVisible="{Binding IsChecked, Source={x:Reference FixedRadioButton}}">
+                    <Label
+                        Text="Number of Columns"
+                        FontAttributes="Bold" />
+
+                    <Entry
+                        Keyboard="Numeric"
+                        Text="{Binding NumberOfColumns}" />
+
+                    <Label
+                        Text="Number of Rows"
+                        FontAttributes="Bold" />
+
+                    <Entry
+                        Keyboard="Numeric"
+                        Text="{Binding NumberOfRows}" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            <Button
+                Text="Save"
+                HorizontalOptions="End"
+                Command="{Binding SaveCommand}" />
+
+        </VerticalStackLayout>
+
+    </Border>
+
+</ContentPage>
