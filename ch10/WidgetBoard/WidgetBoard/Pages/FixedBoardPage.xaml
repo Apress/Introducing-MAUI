@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:layouts="clr-namespace:WidgetBoard.Layouts"
+    xmlns:viewmodels="clr-namespace:WidgetBoard.ViewModels"
+    xmlns:triggers="clr-namespace:WidgetBoard.Triggers"
+    x:Class="WidgetBoard.Pages.FixedBoardPage"
+    Title="FixedBoardPage"
+    x:DataType="viewmodels:FixedBoardPageViewModel">
+
+    <Grid>
+        <layouts:BoardLayout
+            ItemsSource="{Binding Widgets}"
+            ItemTemplateSelector="{Binding WidgetTemplateSelector}">
+            <layouts:BoardLayout.LayoutManager>
+                <layouts:FixedLayoutManager
+                    NumberOfColumns="{Binding NumberOfColumns}"
+                    NumberOfRows="{Binding NumberOfRows}"
+                    PlaceholderTappedCommand="{Binding AddNewWidgetCommand}" />
+            </layouts:BoardLayout.LayoutManager>
+        </layouts:BoardLayout>
+
+        <BoxView
+            BackgroundColor="Black"
+            Opacity="0.5"
+            IsVisible="{Binding IsAddingWidget}" />
+
+        <Border 
+            IsVisible="False"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Padding="10"
+            Style="{StaticResource OverlayBorderStyle}">
+            <Border.Triggers>
+                <DataTrigger
+                    TargetType="Border"
+                    Binding="{Binding IsAddingWidget}"
+                    Value="True">
+
+                    <DataTrigger.EnterActions>
+                        <triggers:ShowOverlayTriggerAction ShowOverlay="True" />
+                    </DataTrigger.EnterActions>
+
+                    <DataTrigger.ExitActions>
+                        <triggers:ShowOverlayTriggerAction ShowOverlay="False" />
+                    </DataTrigger.ExitActions>
+
+
+                </DataTrigger>
+
+            </Border.Triggers>
+
+            <VerticalStackLayout>
+                <Label
+                    Text="Add widget"
+                    FontSize="20" />
+
+                <Label
+                    Text="Widget" />
+
+                <Picker 
+                    ItemsSource="{Binding AvailableWidgets}"
+                    SelectedItem="{Binding SelectedWidget}"
+                    SemanticProperties.Description="{Binding Text, Source={x:Reference SelectTheWidgetLabel}}"
+                    SemanticProperties.Hint="Picker containing the possible widget types that can be added to the board. This is a required field." />
+
+                <Label
+                    Text="Preview" />
+
+                <ContentView 
+                    WidthRequest="250"
+                    HeightRequest="250" />
+
+                <Button
+                    Text="Add widget"
+                    Command="{Binding AddWidgetCommand}"
+                    SemanticProperties.Hint="Adds the selected widget to the board. Requires the 'Select the widget' field to be set." />
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+
+</ContentPage>
