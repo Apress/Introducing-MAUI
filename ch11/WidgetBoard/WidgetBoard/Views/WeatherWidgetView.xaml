@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:WidgetBoard.ViewModels"
+    xmlns:converters="clr-namespace:WidgetBoard.Converters"
+    x:Class="WidgetBoard.Views.WeatherWidgetView"
+    x:DataType="viewmodels:WeatherWidgetViewModel">
+
+    <ContentView.Resources>
+        <converters:IsEqualToStateConverter
+            x:Key="IsLoadingConverter"
+            State="Loading" />
+
+        <converters:IsEqualToStateConverter
+            x:Key="HasLoadedConverter"
+            State="Loaded" />
+
+        <converters:IsEqualToStateConverter
+            x:Key="HasErrorConverter"
+            State="Error" />
+
+        <converters:IsEqualToStateConverter
+            x:Key="HasPermissionErrorConverter"
+            State="PermissionError" />
+
+    </ContentView.Resources>
+
+    <VerticalStackLayout>
+        <Label 
+            Text="Today"
+            FontSize="20"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start"
+            TextTransform="Uppercase" />
+
+        <!-- Loading -->
+        <VerticalStackLayout
+            IsVisible="{Binding State, Converter={StaticResource IsLoadingConverter}}">
+
+            <ActivityIndicator
+                IsRunning="{Binding State, Converter={StaticResource IsLoadingConverter}}" />
+
+            <Label
+                Text="Loading weather data" />
+        </VerticalStackLayout>
+
+        <!-- Loaded -->
+        <VerticalStackLayout
+            IsVisible="{Binding State, Converter={StaticResource HasLoadedConverter}}">
+
+            <Label
+                VerticalOptions="Center" 
+                HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            Text="{Binding Temperature, StringFormat='{0:F1}'}"
+                            FontSize="60"/>
+
+                        <Span
+                            Text="℃" />
+                    </FormattedString>
+
+                </Label.FormattedText>
+
+            </Label>
+
+            <Label 
+                Text="{Binding Weather}"
+                FontSize="20"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+            <Image
+                Source="{Binding IconUrl}"
+                WidthRequest="100"
+                HeightRequest="100"/>
+        </VerticalStackLayout>
+
+        <!-- Error -->
+        <VerticalStackLayout
+            IsVisible="{Binding State, Converter={StaticResource HasErrorConverter}}">
+
+            <Label
+                Text="Unable to load weather data" />
+
+            <Button
+                Text="Retry"
+                Command="{Binding LoadWeatherCommand}" />
+
+        </VerticalStackLayout>
+
+        <!-- PermissionError -->
+        <VerticalStackLayout
+            IsVisible="{Binding State, Converter={StaticResource HasPermissionErrorConverter}}">
+
+            <Label
+                Text="Unable to retrieve location data" />
+
+            <Button
+                Text="Retry"
+                Command="{Binding LoadWeatherCommand}" />
+
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentView>
