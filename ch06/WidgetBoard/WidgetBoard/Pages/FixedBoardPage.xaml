@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:layouts="clr-namespace:WidgetBoard.Layouts"
+    xmlns:viewmodels="clr-namespace:WidgetBoard.ViewModels"
+    x:Class="WidgetBoard.Pages.FixedBoardPage"
+    Title="FixedBoardPage"
+    x:DataType="viewmodels:FixedBoardPageViewModel">
+
+    <layouts:BoardLayout
+        ItemsSource="{Binding Widgets}"
+        ItemTemplateSelector="{Binding WidgetTemplateSelector}">
+        <layouts:BoardLayout.LayoutManager>
+            <layouts:FixedLayoutManager
+                NumberOfColumns="{Binding NumberOfColumns}"
+                NumberOfRows="{Binding NumberOfRows}"
+                 />
+        </layouts:BoardLayout.LayoutManager>
+    </layouts:BoardLayout>
+
+</ContentPage>
