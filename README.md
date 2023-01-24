@@ -3,7 +3,7 @@
 This repository accompanies [*Introducing MAUI*](https://www.link.springer.com/book/10.1007/%eisbn%) by Shaun Lawrence (Apress, 2022).
 
 [comment]: #cover
-![Cover image](%isbn%.jpg)
+![Cover image](%978-1-4842-9233-4%.jpg)
 
 Download the files as a zip using the green button, or clone the repository to your machine using Git.
 
