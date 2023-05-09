@@ -1,6 +1,6 @@
 # Apress Source Code
 
-This repository accompanies [*Introducing MAUI*](https://www.link.springer.com/book/10.1007/%eisbn%) by Shaun Lawrence (Apress, 2022).
+This repository accompanies [*Introducing MAUI*](https://link.springer.com/book/10.1007/978-1-4842-9234-1) by Shaun Lawrence (Apress, 2022).
 
 [comment]: #cover
 ![Cover image](978-1-4842-9233-4.jpg)
